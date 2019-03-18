@@ -18,8 +18,11 @@
   ],
   "author": "Hendrik Lammers <lammers@gmail.com> (http://www.hendriklammers.com)",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2"
+  },
   "devDependencies": {
+    "@types/cheerio": "^0.22.11",
     "@types/node": "^11.11.3",
     "nodemon": "^1.18.10",
     "prettier": "^1.16.4",
