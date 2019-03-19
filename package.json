@@ -9,12 +9,8 @@
     "build": "tsc",
     "build:watch": "tsc --watch",
     "lint": "tslint -p tsconfig.json",
-    "start": "nodemon --watch src/**/*.ts --exec ts-node src/index.ts"
+    "start": "ts-node src/index.ts"
   },
-  "keywords": [
-    "node",
-    "typescript"
-  ],
   "author": "Hendrik Lammers <lammers@gmail.com> (http://www.hendriklammers.com)",
   "license": "MIT",
   "dependencies": {
@@ -24,15 +20,11 @@
   "devDependencies": {
     "@types/cheerio": "^0.22.11",
     "@types/node": "^11.11.3",
-    "nodemon": "^1.18.10",
     "prettier": "^1.16.4",
     "ts-node": "^8.0.3",
     "tslint": "^5.14.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.3.3333"
-  },
-  "bin": {
-    "brutalist-scrape": "dist/cli.js"
   },
   "files": [
     "dist/**/*"
