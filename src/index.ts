@@ -28,29 +28,27 @@ const parseHtml = (html: string): Promise<Website[]> =>
       const result: Website[] = []
       const $ = cheerio.load(html)
 
-      $('.box')
-        .slice(0, 10)
-        .each((i, elem) => {
-          const urlString = $(elem)
-            .find('.screenshot > a')
-            .attr('href')
-          const titleString = $(elem)
-            .find('.screenshot + p')
-            .contents()
-            .first()
-            .text()
-          const imageString = $(elem)
-            .find('.screenshot > a > img')
-            .attr('src')
+      $('.box').each((i, elem) => {
+        const urlString = $(elem)
+          .find('.screenshot > a')
+          .attr('href')
+        const titleString = $(elem)
+          .find('.screenshot + p')
+          .contents()
+          .first()
+          .text()
+        const imageString = $(elem)
+          .find('.screenshot > a > img')
+          .attr('src')
 
-          if (imageString && titleString && urlString) {
-            result.push({
-              image: path.basename(imageString),
-              title: titleString.trim(),
-              url: urlString.trim(),
-            })
-          }
-        })
+        if (imageString && titleString && urlString) {
+          result.push({
+            image: path.basename(imageString),
+            title: titleString.trim(),
+            url: urlString.trim(),
+          })
+        }
+      })
       resolve(result)
     } catch (err) {
       reject(err)
