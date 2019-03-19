@@ -4,5 +4,6 @@ logs
 npm-debug.log*
 node_modules
 coverage
-lib
+dist
 .env
+data

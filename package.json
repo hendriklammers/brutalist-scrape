@@ -1,7 +1,7 @@
 {
   "name": "brutalist-scrape",
   "version": "1.0.0",
-  "description": "brutalist website urls",
+  "description": "brutalist website urls and screenshots",
   "repository": "github:hendriklammers/brutalist-scrape",
   "main": "dist/index.js",
   "types": "dist",
@@ -9,7 +9,6 @@
     "build": "tsc",
     "build:watch": "tsc --watch",
     "lint": "tslint -p tsconfig.json",
-    "prepare": "npm run build",
     "start": "nodemon --watch src/**/*.ts --exec ts-node src/index.ts"
   },
   "keywords": [
@@ -19,7 +18,8 @@
   "author": "Hendrik Lammers <lammers@gmail.com> (http://www.hendriklammers.com)",
   "license": "MIT",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2"
+    "cheerio": "^1.0.0-rc.2",
+    "ora": "^3.2.0"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.11",
