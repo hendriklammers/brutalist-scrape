@@ -106,6 +106,8 @@ const main = async () => {
   }).start()
 
   try {
+    fs.mkdirSync(path.join(__dirname, '../data/img'), { recursive: true })
+
     const html = await getPage('https://brutalistwebsites.com')
     const websites = await parseHtml(html)
     await writeJSON(websites, '../data/websites.json')
