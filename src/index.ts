@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import util from 'util'
 import cheerio from 'cheerio'
-import ora from 'ora'
+import ora, { Ora } from 'ora'
 
 interface Website {
   image: string
@@ -70,16 +70,23 @@ const downloadImage = (url: string, dir: string): Promise<string> =>
       .on('error', reject)
   })
 
-const getScreenshots = (websites: Website[], dir: string): Promise<string[]> =>
+const getScreenshots = (
+  websites: Website[],
+  dir: string,
+  spinner: Ora
+): Promise<string[]> =>
   new Promise(async (resolve, reject) => {
+    spinner.text = `Downloading screenshots 0/${websites.length}`
+    spinner.start()
     const result: string[] = []
-    for (const website of websites) {
+    for (const [index, website] of websites.entries()) {
       const url = path.join(
         'https://brutalistwebsites.com/_img/',
         website.image
       )
       try {
         const image = await downloadImage(url, dir)
+        spinner.text = `Downloading screenshots ${index + 1}/${websites.length}`
         result.push(image)
       } catch (err) {
         console.error(err)
@@ -99,14 +106,18 @@ const main = async () => {
     color: 'white',
     text: 'Scraping titles and urls',
   }).start()
-  const html = await getPage('https://brutalistwebsites.com')
-  const websites = await parseHtml(html)
-  await writeJSON(websites, '../data/websites.json')
-  spinner.succeed()
-  spinner.text = 'Downloading screenshots'
-  spinner.start()
-  const screenshots = await getScreenshots(websites, '../data/img')
-  spinner.succeed()
+
+  try {
+    const html = await getPage('https://brutalistwebsites.com')
+    const websites = await parseHtml(html)
+    await writeJSON(websites, '../data/websites.json')
+    spinner.succeed()
+    await getScreenshots(websites, '../data/img', spinner)
+    spinner.succeed()
+  } catch (err) {
+    console.error(err)
+    spinner.stop()
+  }
 }
 
-main().catch(console.error)
+main()
